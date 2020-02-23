@@ -5,6 +5,10 @@ import sys
 
 FFMPEG_PATH = "e:\\ffmpeg\\bin\\ffmpeg.exe"
 
+DEFAULT_CRF = "17"
+DEFAULT_EXT = "mkv"
+DEFAULT_LANG = "eng"
+
 def get_stream_info(s):
 	ss = s.split(":")[1].split("(")
 	ss[1] = ss[1][:-1]
@@ -94,12 +98,12 @@ def create_args():
 	parser = argparse.ArgumentParser(prog='transcode', description='Invoke ffmpeg to transcode videos')
 	parser.add_argument('-a', '--all_subs', action='store_true', default=False)
 	parser.add_argument('-d', '--directory', action='store_true', default=False)
-	parser.add_argument('-e', '--ext', default="mkv")
+	parser.add_argument('-e', '--ext', default=DEFAULT_EXT)
 	parser.add_argument('-f', '--forced_subs', action='store_true', default=False)
 	parser.add_argument('-i', '--deinterlace', action="store_true", default=False)
-	parser.add_argument('-l', '--lang', default="eng")
-	parser.add_argument('-q', '--quality', default="17")
-	parser.add_argument('-s', '--sublang', default="eng")
+	parser.add_argument('-l', '--lang', default=DEFAULT_LANG)
+	parser.add_argument('-q', '--quality', default=DEFAULT_CRF)
+	parser.add_argument('-s', '--sublang', default=DEFAULT_LANG)
 	parser.add_argument('--source', default=None)
 	parser.add_argument('path', nargs='?', default='.')
 
