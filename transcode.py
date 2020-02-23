@@ -9,7 +9,11 @@ DEFAULT_CRF = "17"
 DEFAULT_EXT = "mkv"
 DEFAULT_LANG = "eng"
 
+X264_PRESET = "slow"
+
 def get_stream_info(s):
+        # This is a bunch of magic bs and I need to figure out a better way to find what we're looking
+        # for that's not as likely to randomly break when ffmpeg updates
 	ss = s.split(":")[1].split("(")
 	ss[1] = ss[1][:-1]
 	codec = s.split(":")[3].split(",")[0]
@@ -84,7 +88,7 @@ def transcode(file, streams, args):
 		cmd.extend(["-filter_complex", "[0:v:0][0:{}]overlay".format(sub_stream)])
 
 	# Video transcode
-	cmd.extend(["-c:v", "libx264", "-crf", quality, "-preset", "slow"])
+	cmd.extend(["-c:v", "libx264", "-crf", quality, "-preset", X264_PRESET])
 
 	# Audio copy
 	cmd.extend(["-c:a:{}".format(audio_stream), "copy"])
